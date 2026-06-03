@@ -1,0 +1,1462 @@
+/* ========================================== BÖLÜM: RESET VE ROOT AYARLARI ========================================== */
+:root {
+  --bg: #050506;
+  --bg-deep: #020203;
+  --surface: rgba(14, 16, 21, 0.78);
+  --surface-strong: rgba(20, 23, 30, 0.92);
+  --surface-soft: rgba(255, 255, 255, 0.055);
+  --text: #f7f3ea;
+  --muted: #b9b2a7;
+  --muted-2: #8e887f;
+  --line: rgba(255, 255, 255, 0.11);
+  --gold: #c9a86a;
+  --gold-soft: #f1d79b;
+  --red: #cf1f35;
+  --blue: #5572ff;
+  --violet: #9b5cff;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.46);
+  --radius-xl: 34px;
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --container: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  position: relative;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(155, 92, 255, 0.18), transparent 32%),
+    radial-gradient(circle at 82% 12%, rgba(207, 31, 53, 0.22), transparent 30%),
+    radial-gradient(circle at 50% 0%, rgba(201, 168, 106, 0.12), transparent 44%),
+    linear-gradient(180deg, #060608 0%, #090a0d 44%, #040405 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.034) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.034) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.34) 40%, transparent 90%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.045), transparent 38%);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(calc(100% - 40px), var(--container));
+  margin: 0 auto;
+}
+
+/* ========================================== BÖLÜM: ORTAK STİLLER ========================================== */
+h1, h2, h3 {
+  color: var(--text);
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  max-width: 720px;
+  font-size: clamp(44px, 6vw, 82px);
+  line-height: .94;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: clamp(32px, 4vw, 55px);
+  line-height: 1.02;
+  font-weight: 900;
+}
+
+h3 {
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 900;
+  transition: transform .22s ease, border-color .22s ease, background .22s ease, opacity .22s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: #120f08;
+  background: linear-gradient(135deg, #fff1be, var(--gold) 70%, #9f7d3f);
+  box-shadow: 0 18px 42px rgba(201, 168, 106, 0.25);
+}
+
+.btn-ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.eyebrow,
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--gold-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before,
+.section-kicker::before {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================== BÖLÜM: HEADER VE NAVİGASYON ========================================== */
+.site-glow {
+  position: fixed;
+  inset: auto -18% -26% -18%;
+  height: 420px;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(201, 168, 106, 0.15), transparent 66%);
+  filter: blur(10px);
+}
+
+.topbar {
+  position: relative;
+  z-index: 100;
+  padding-top: 112px;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  overflow: visible;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.5), transparent);
+}
+
+.light-rig-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 140;
+  height: 112px;
+  background:
+    linear-gradient(180deg, rgba(4, 4, 6, 0.98), rgba(9, 7, 10, 0.92)),
+    radial-gradient(circle at 50% 100%, rgba(201, 168, 106, 0.12), transparent 58%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.light-rig-bar::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  width: min(760px, 74vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+}
+
+.nav-area {
+  position: relative;
+  z-index: 90;
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0.94), rgba(5, 5, 6, 0.82));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.32);
+}
+
+.nav-shell {
+  min-height: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+  z-index: 10;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand img {
+  width: 248px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  color: rgba(247, 243, 234, 0.78);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.nav-links a {
+  position: relative;
+  transition: color .22s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transition: transform .22s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-instagram {
+  display: flex;
+  align-items: center;
+  color: #d1d1d1; 
+  /* HAYALET KAYDIRMA BURADA AGA: */
+  transform: translateX(-8px); /* Eksi değerler sola, artı değerler sağa kaydırır. Düzeni asla bozmaz! */
+  transition: all 0.3s ease;
+}
+
+.nav-instagramLeftText {
+  margin-right: 10px; /* Arayı açan o çalışan boşluğumuz aynen duruyor */
+  font-weight: 800; /* Menünün kalanı gibi kalın (strong) yapar */
+  color: rgba(247, 243, 234, 0.78); /* Diğer menülerin orijinal rengini alır */
+  transition: color .22s ease; /* Renk değişiminin yumuşak olması için */
+}
+
+.nav-instagram:hover .nav-instagramLeftText {
+  color: #fff; /* Jilet gibi parlak beyaz! */
+}
+
+.nav-instagram:hover {
+  transform: translate(-8px, -3px); /* Üzerine gelince hem soldaki yerini korur (-20px), hem de yukarı zıplar (-3px) */
+}
+
+.nav-instagram:hover svg {
+  stroke: url(#insta-renk); /* Üzerine gelince SVG çizgisini degrade renge boyar */
+}
+
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.38);
+  padding: 9px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.lang-btn {
+  border: 0;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.lang-btn.active {
+  color: var(--gold-soft);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  color: #100e0a;
+  font-size: 13px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  box-shadow: 0 12px 34px rgba(201, 168, 106, 0.22);
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+/* ========================================== BÖLÜM: IŞIK ROBOTLARI ========================================== */
+.stage-light-system {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.light-robot {
+  --beam-length: 330px;
+  position: absolute;
+  top: 8px;
+  width: 92px;
+  height: 76px;
+  opacity: .96;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.55));
+}
+
+.robot-left {
+  left: max(18px, calc((100vw - var(--container)) / 2 + 12px)); 
+}
+
+.robot-right {
+  right: max(18px, calc((100vw - var(--container)) / 2 + 12px));
+}
+
+.robot-mount {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 40px;
+  height: 14px;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(180deg, #3a3d45, #0c0d10 80%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.robot-axis {
+  position: absolute;
+  top: 27px;
+  left: 32px;
+  width: 30px;
+  height: 30px;
+  transform-origin: 50% 50%;
+  transform: rotate(var(--robot-angle, 105deg));
+  will-change: transform;
+}
+
+.robot-right .robot-axis {
+  top: 19px; 
+}
+
+.robot-head {
+  position: absolute;
+  z-index: 2;
+  left: -10px;
+  top: -9px;
+  width: 48px;
+  height: 38px;
+  border-radius: 16px 16px 18px 18px;
+  background: linear-gradient(145deg, #3a3d45 0%, #15171b 54%, #050506 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 22px rgba(0, 0, 0, 0.36);
+}
+
+.robot-head::before,
+.robot-head::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  width: 5px;
+  height: 23px;
+  border-radius: 999px;
+  background: #08090b;
+}
+
+.robot-head::before {
+  left: -6px;
+}
+
+.robot-head::after {
+  right: -6px;
+}
+
+.robot-head span {
+  position: absolute;
+  right: -3px;
+  top: 8px;
+  width: 17px;
+  height: 21px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 66% 44%, rgba(255,255,255,.98), rgba(241,215,155,.7) 35%, rgba(255,255,255,.12) 62%, rgba(0,0,0,.56) 100%);
+  box-shadow: 0 0 18px rgba(241, 215, 155, 0.62), inset 0 0 4px rgba(255, 255, 255, 0.68);
+}
+
+.robot-beam {
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  top: 13px;
+  width: var(--beam-length);
+  height: 114px;
+  transform: translateY(-50%);
+  transform-origin: 0 50%;
+  clip-path: polygon(0 43%, 100% 5%, 100% 95%, 0 57%);
+  background:
+    linear-gradient(90deg, rgba(241, 215, 155, .36) 0%, rgba(255, 255, 255, .18) 38%, rgba(85, 114, 255, .09) 72%, transparent 100%);
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  opacity: .58;
+}
+
+.robot-beam::after {
+  content: "";
+  position: absolute;
+  inset: 28% 0;
+  background: linear-gradient(90deg, rgba(255,255,255,.34), rgba(255,255,255,0));
+  filter: blur(8px);
+}
+
+/* ========================================== BÖLÜM: ANA SAYFA (HERO) ========================================== */
+.hero {
+  position: relative;
+  padding: 92px 0 92px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 64% 10%, rgba(207, 31, 53, .18), transparent 32%), radial-gradient(circle at 42% 20%, rgba(201,168,106,.11), transparent 36%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, .92fr);
+  gap: 58px;
+  align-items: center;
+}
+
+.hero-text {
+  max-width: 660px;
+  margin-top: 24px;
+  color: rgba(247, 243, 234, 0.72);
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.hero-actions,
+.contact-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 700px;
+  margin-top: 42px;
+}
+
+.trust-strip div {
+  min-height: 118px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+  box-shadow: 0 18px 60px rgba(0,0,0,.18);
+}
+
+.trust-strip strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--gold-soft);
+  font-size: 32px;
+  letter-spacing: -0.06em;
+}
+
+.trust-strip span {
+  display: block;
+  color: rgba(247, 243, 234, 0.66);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 650px;
+}
+
+/* ========================================== BÖLÜM: ORTAK GÖRSEL KARTLARI ========================================== */
+.image-stage,
+.floating-card,
+.feature-image,
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow);
+}
+
+.image-stage img,
+.floating-card img,
+.feature-image img,
+.gallery-item img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s ease, filter .7s ease;
+}
+
+.image-stage:hover img,
+.floating-card:hover img,
+.feature-image:hover img,
+.gallery-item:hover img {
+  transform: scale(1.045);
+  filter: saturate(1.07) contrast(1.05);
+}
+
+.main-photo {
+  height: 610px;
+  border-radius: var(--radius-xl);
+}
+
+.main-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.76));
+}
+
+.image-caption {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 26px;
+  z-index: 2;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.image-caption span {
+  color: rgba(255,255,255,.66);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.image-caption strong {
+  color: #fff;
+  font-size: 18px;
+}
+
+.floating-card {
+  position: absolute;
+  width: 230px;
+  height: 166px;
+  border-radius: 26px;
+}
+
+.card-one {
+  top: 50px;
+  left: -46px;
+}
+
+.card-two {
+  right: -36px;
+  bottom: 82px;
+}
+
+/* ========================================== BÖLÜM: BÖLÜM İÇERİKLERİ (HAKKIMIZDA, HİZMETLER) ========================================== */
+#about,
+#besiktas,
+#contact {
+  min-height: calc(100svh - 180px);
+  display: flex;
+  align-items: center;
+}
+
+.split-grid,
+.feature-grid,
+.contact-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.section-content,
+.contact-form,
+.service-card,
+.process-card,
+.signature-box,
+.contact-lines div {
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.028));
+  box-shadow: 0 24px 70px rgba(0,0,0,.25);
+}
+
+.section-content {
+  padding: 36px;
+  border-radius: var(--radius-xl);
+}
+
+.section-content p,
+.feature-copy p,
+.section-top p,
+.contact-copy p {
+  color: rgba(247, 243, 234, 0.7);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.section-content p + p {
+  margin-top: 18px;
+}
+
+.signature-box {
+  margin-top: 26px;
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.signature-box span {
+  display: block;
+  color: var(--gold-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.signature-box strong {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.services-section,
+.gallery-section {
+  background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.section-top {
+  max-width: 820px;
+  margin-bottom: 44px;
+}
+
+.section-top p:last-child {
+  max-width: 620px;
+  margin-top: 16px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-card {
+  min-height: 268px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  border-radius: 28px;
+  transition: transform .22s ease, border-color .22s ease, background .22s ease;
+}
+
+.service-card:hover,
+.process-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(201, 168, 106, 0.42);
+  background: linear-gradient(145deg, rgba(201,168,106,.12), rgba(255,255,255,.035));
+}
+
+.service-card span,
+.process-card strong {
+  color: var(--gold-soft);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.service-card p,
+.process-card p {
+  color: rgba(247, 243, 234, 0.66);
+  line-height: 1.65;
+}
+
+.feature-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+}
+
+.feature-image {
+  height: 570px;
+  border-radius: var(--radius-xl);
+}
+
+.feature-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.74));
+}
+
+.feature-badge {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  padding: 16px 18px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 900;
+  background: rgba(0,0,0,.52);
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(12px);
+}
+
+.feature-copy p {
+  margin-top: 22px;
+}
+
+.highlight-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.highlight-list div {
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.055);
+}
+
+.highlight-list strong {
+  display: block;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.highlight-list span {
+  color: rgba(247, 243, 234, 0.62);
+  font-size: 14px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.process-card {
+  min-height: 250px;
+  padding: 26px;
+  border-radius: 26px;
+  transition: transform .22s ease, border-color .22s ease, background .22s ease;
+}
+
+.process-card h3 {
+  margin: 32px 0 14px;
+}
+
+/* ========================================== BÖLÜM: GALERİ VE LIGHTBOX ========================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 16px;
+}
+
+.gallery-item {
+  appearance: none;
+  border-radius: 26px;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.gallery-item.large,
+.gallery-item.wide {
+  grid-column: span 2;
+}
+
+.gallery-item.tall {
+  grid-row: span 2;
+}
+
+/* 1. Normal ve Hover Durumu (Galerideki küçük fotoğraflar için) */
+.gallery-caption {
+  position: absolute;
+  bottom: 18px; 
+  left: 10px;
+  right:10px; 
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.75); /* Biraz daha belirgin yaptık */
+  font-size: 14px; /* Boyutu çok hafif büyüttük */
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  pointer-events: none; 
+}
+
+/* 2. Tıklanmış Büyümüş Durum (Lightbox için) */
+.lightbox-caption-text {
+  position: absolute;
+  bottom: 55px; /* Büyümüş ekranda aşağıdan boşluk */
+  left: 50%;
+  transform: translateX(-50%); /* Yazıyı ekranın tam ortasına hizalar */
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 1);
+  z-index: 301; /* Kapatma butonunun altında, görselin üstünde kalması için */
+  pointer-events: none;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  place-items: center;
+  padding: 34px;
+  background: rgba(0,0,0,.86);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.active {
+  display: grid;
+}
+
+.lightbox img {
+  width: min(1100px, 96vw);
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: var(--shadow);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  font-size: 30px;
+  background: rgba(255,255,255,.08);
+}
+
+/* ========================================== BÖLÜM: İLETİŞİM FORMU ========================================== */
+.contact-section {
+  padding-bottom: 110px;
+}
+
+.contact-grid {
+  grid-template-columns: .95fr 1.05fr;
+  align-items: stretch;
+}
+
+.contact-copy,
+.contact-form {
+  min-height: 100%;
+}
+
+.contact-lines {
+  display: grid;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.contact-lines div {
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.contact-lines span {
+  display: block;
+  margin-bottom: 1px;
+  color: var(--gold-soft);   /*ikon yanındaki yazının ayarlarını yapmak için */
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.contact-lines strong,
+.contact-lines a {
+  color: #fff; 
+  line-height: 1.45;
+}
+
+.contact-form {
+  padding: 30px;
+  border-radius: var(--radius-xl);
+}
+
+.contact-map-link {
+  display: grid;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-map-link:hover strong,
+.contact-map-link:hover span {
+  color: var(--gold-soft);
+}
+
+.contact-line-title {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-line-title i {
+  color: var(--gold-soft);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.form-row {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.form-row label {
+  color: rgba(247, 243, 234, 0.8);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  outline: 0;
+  color: #fff;
+  background: rgba(0,0,0,.28);
+  border-radius: 18px;
+  padding: 16px 17px;
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.form-row textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  border-color: rgba(201,168,106,.62);
+  background: rgba(0,0,0,.38);
+  box-shadow: 0 0 0 4px rgba(201,168,106,.09);
+}
+
+.form-submit {
+  width: 100%;
+  border: 0;
+  margin-top: 4px;
+}
+
+.form-submit:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-status {
+  min-height: 22px;
+  margin-top: 14px;
+  color: var(--gold-soft);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.form-status.error {
+  color: #ff8d9b;
+}
+
+.form-note {
+  margin-top: 10px;
+  color: rgba(247, 243, 234, .45);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+/* --- TARAYICI OTOMATİK DOLDURMA (AUTOFILL) BEYAZLIĞINI YOK ETME TOKADI --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff !important; /* Tarayıcının yazıyı siyaha çevirmesini engeller, beyazda kilitler */
+  transition: background-color 5000s ease-in-out 0s !important; /* O iğrenç beyaz arka planın geliş süresini 5000 saniye geciktirerek sonsuza dek engeller! */
+  background-color: transparent !important;
+}
+
+/* ========================================== BÖLÜM: FOOTER ========================================== */
+.footer {
+  border-top: 1px solid var(--line);
+  background: rgba(0,0,0,.34);
+  padding: 42px 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.24));
+}
+
+.footer p {
+  color: rgba(247, 243, 234, .58);
+  line-height: 1.55;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+  color: rgba(247, 243, 234, .72);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.copyright {
+  grid-column: 1 / -1;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: 13px;
+}
+
+/* =======================================================
+   YENİ JİLET GİBİ MOBİL VE TABLET UYUM KODLARI
+   (Eski iki bloğun yerine TAMAMEN bunu yapıştırın)
+======================================================= */
+
+/* --- TABLET VE KÜÇÜK LAPTOPLAR (1040px altı) --- */
+@media (max-width: 1040px) {
+  .brand img {
+    width: 210px;
+  }
+  .hero-grid,
+  .split-grid,
+  .feature-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    min-height: 560px;
+  }
+  .main-photo {
+    height: 520px;
+  }
+  .service-grid,
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- CEP TELEFONLARI (720px ve altı - Mobil Düzen) --- */
+@media (max-width: 720px) {
+  /* 1. ÜST MENÜ HİZALAMA VE NEFES BOŞLUĞU */
+
+/* ışık ROBOTLARINI MOBİLDE KÜÇÜLTME */
+  .light-robot {
+    --beam-length: 170px !important;
+    transform: scale(0.75) !important;
+    transform-origin: top center;
+    opacity: 0.8 !important;
+  }
+  .robot-left {
+    left: 10px !important;
+  }
+  .robot-right {
+    right: 10px !important;
+  }
+
+  .topbar {
+    padding-top: 80px;
+  }
+  .light-rig-bar {
+    height: 80px;
+  }
+  .nav-shell {
+    min-height: 90px;
+    gap: 12px;
+    justify-content: space-between !important;
+  }
+  .nav-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 15px !important;
+  }
+  .nav-cta {
+    display: none; /* Mobilde teklif al butonunu gizler, kalabalık yapmaz */
+  }
+  .brand {
+    min-width: 0;
+  }
+  .brand img {
+    width: 170px;
+    height: auto;
+  }
+  .language-switch {
+    padding: 6px 10px !important;
+  }
+  .menu-toggle {
+    display: flex !important;
+    z-index: 1001;
+    position: relative;
+  }
+
+  /* 2. PREMIUM HAMBURGER MENÜ (Sağdan kayarak gelen cam efekti) */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Ekranın sağına gizler */
+    width: 75%;
+    max-width: 320px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: rgba(6, 6, 8, 0.98);
+    backdrop-filter: blur(15px);
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+  }
+  .nav-links.open {
+    display: flex !important;
+    right: 0;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8);
+  }
+  .nav-links a {
+    font-size: 20px;
+    padding: 12px 8px;
+    width: 100%;
+    text-align: center;
+  }
+  /* --- Instagram İkonu Mobil Düzeltmesi --- */
+  .nav-instagram {
+    transform: translateX(0) !important; /* Masaüstündeki hayalet kaymayı sıfırla */
+    margin: 15px 0 !important; /* Sağ/sol boşlukları tamamen sil, sadece üstten/alttan 15px nefes payı bırak */
+    justify-content: center; /* Flex yapısında ikonu tam merkeze kilitle */
+    width: 100%; /* Diğer menü yazıları gibi tüm satırı kaplasın ki ortalama bozulmasın */
+  }
+
+  /* Dokunmatik ekranlar için hover (zıplama ve renk) efektlerini kökten iptal et */
+  .nav-instagram:hover {
+    transform: translateX(0) !important; 
+  }
+  
+  .nav-instagram:hover svg {
+    stroke: currentColor !important; /* Orijinal asil rengini koru */
+  }
+
+  /* 3. DEVASA BAŞLIKLARI KİBARLAŞTIRMA VE EKRAN AYARLARI */
+  .hero {
+    padding: 60px 0;
+  }
+  h1 {
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 15px;
+  }
+  h2 {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+  .hero-text {
+    font-size: 16px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn {
+    width: 100%;
+  }
+  .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  /* 4. FOTOĞRAFLAR VE BEŞİKTAŞ ROZETİ */
+  .hero-visual {
+    min-height: 400px;
+  }
+  .main-photo {
+    height: 380px;
+    border-radius: 24px;
+  }
+  .floating-card {
+    display: none; /* Mobilde ekranı daraltan küçük uçan fotolar gizlenir */
+  }
+  .feature-image {
+    height: 350px;
+  }
+  .feature-badge {
+    font-size: 12px !important;
+    padding: 10px 14px !important;
+    bottom: 15px !important;
+    left: 15px !important;
+    right: 15px !important;
+    text-align: center !important;
+  }
+
+  /* 5. GALERİ VE LIGHTBOX (KAYAN FOTOĞRAF %100 SAF ÇÖZÜM) */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 250px;
+    gap: 12px;
+  }
+  .gallery-item.large,
+  .gallery-item.wide,
+  .gallery-item.tall {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  
+  /* Siyah arka planı kutu sistemine (Flex) çeviriyoruz */
+  .lightbox {
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+  .lightbox.active {
+    display: flex !important;
+    flex-direction: column !important; /* Alt alta diz */
+    justify-content: center !important; /* Dikeyde tam ortala */
+    align-items: center !important; /* Yatayda tam ortala */
+  }
+  
+  /* Fotoğrafın kurallarını sıfırlayıp serbest bırakıyoruz */
+  .lightbox img {
+    position: static !important; /* Bütün eski çivilemeleri iptal et */
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 65vh !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+  }
+  
+  /* Yazıyı resmin hemen altına doğal akışla yerleştiriyoruz */
+  .lightbox-caption-text {
+    position: static !important; /* Bütün eski çivilemeleri iptal et */
+    transform: none !important;
+    margin: 20px 0 0 0 !important; /* Sadece üstten biraz boşluk bırak (resimle arasına) */
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 6. ALT BİLGİ (FOOTER) VE DİĞER GRİDLERİN DÜZENİ */
+  .section {
+    padding: 60px 0;
+  }
+  .section-content,
+  .contact-form {
+    padding: 20px;
+    border-radius: 24px;
+  }
+  .service-grid,
+  .process-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-links {
+    justify-content: center !important;
+    gap: 15px !important;
+    margin-top: 15px !important;
+    flex-wrap: wrap;
+  }
+  
+  /* Parmak ucu standartları ve mobil hover (titreme) engelleme */
+  button, a, .gallery-item {
+    min-height: 44px;
+  }
+  .gallery-item:hover img,
+  .image-stage:hover img,
+  .feature-image:hover img {
+    transform: none !important;
+    filter: none !important;
+
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .robot-beam {
+    opacity: .38;
+  }
+}
